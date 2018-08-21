@@ -15,6 +15,9 @@
         <attr name="indicator_drawable_unselected" format="reference" />
         <attr name="banner_layout" format="reference"/>
         <attr name="banner_default_image" format="reference"/>
+        <attr name="three_pages" format="boolean"/>
+        <attr name="page_margin" format="dimension"/>
+        <attr name="page_padding" format="dimension"/>
         <attr name="image_scale_type" format="enum">
             <enum name="center" value="0" />
             <enum name="center_crop" value="1" />

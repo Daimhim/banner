@@ -35,6 +35,9 @@ import static android.support.v4.view.ViewPager.PageTransformer;
 
 public class Banner extends FrameLayout implements OnPageChangeListener {
     public String tag = "banner";
+    private boolean threePages;
+    private int pageMargin;
+    private int pagePadding;
     private int mIndicatorMargin = BannerConfig.PADDING_SIZE;
     private int mIndicatorWidth;
     private int mIndicatorHeight;
@@ -109,6 +112,18 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         numIndicator = (TextView) view.findViewById(R.id.numIndicator);
         numIndicatorInside = (TextView) view.findViewById(R.id.numIndicatorInside);
         bannerDefaultImage.setImageResource(bannerBackgroundImage);
+        if (threePages){
+            ((ViewGroup)view.findViewById(R.id.bannerContainer)).setClipChildren(false);
+            viewPager.setClipToPadding(false);
+            viewPager.setPadding(pagePadding+pageMargin,0,pagePadding+pageMargin,0);
+            viewPager.setPageMargin(pageMargin);
+            this.setOnTouchListener(new OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return viewPager.dispatchTouchEvent(event);
+                }
+            });
+        }
         initViewPagerScroll();
     }
 
@@ -132,6 +147,9 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         titleTextSize = typedArray.getDimensionPixelSize(R.styleable.Banner_title_textsize, BannerConfig.TITLE_TEXT_SIZE);
         mLayoutResId = typedArray.getResourceId(R.styleable.Banner_banner_layout, mLayoutResId);
         bannerBackgroundImage = typedArray.getResourceId(R.styleable.Banner_banner_default_image, R.drawable.no_banner);
+        threePages = typedArray.getBoolean(R.styleable.Banner_three_pages, false);
+        pageMargin = typedArray.getDimensionPixelSize(R.styleable.Banner_page_margin,pageMargin);
+        pagePadding = typedArray.getDimensionPixelSize(R.styleable.Banner_page_padding,pagePadding);
         typedArray.recycle();
     }
 
@@ -147,6 +165,20 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         }
     }
 
+    public Banner setThreePages(boolean pThreePages) {
+        threePages = pThreePages;
+        return this;
+    }
+
+    public Banner setPageMargin(int pPageMargin) {
+        pageMargin = pPageMargin;
+        return this;
+    }
+
+    public Banner setPagePadding(int pPagePadding) {
+        pagePadding = pPagePadding;
+        return this;
+    }
 
     public Banner isAutoPlay(boolean isAutoPlay) {
         this.isAutoPlay = isAutoPlay;
@@ -237,6 +269,7 @@ public class Banner extends FrameLayout implements OnPageChangeListener {
         this.count = imageUrls.size();
         return this;
     }
+
 
     public void update(List<?> imageUrls, List<String> titles) {
         this.titles.clear();

@@ -19,6 +19,7 @@ import com.test.banner.demo.BannerStyleActivity;
 import com.test.banner.demo.CustomBannerActivity;
 import com.test.banner.demo.CustomViewPagerActivity;
 import com.test.banner.demo.IndicatorPositionActivity;
+import com.test.banner.demo.ThreeChildrenActivity;
 import com.test.banner.loader.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -118,6 +119,12 @@ public class MainActivity extends AppCompatActivity implements SwipeRefreshLayou
                 break;
             case 6:
                 startActivity(new Intent(this, CustomViewPagerActivity.class));
+                break;
+            case 7:
+//                startActivity(new Intent(this,ThreeChildrenActivity.class));
+                break;
+            case 8:
+                startActivity(new Intent(this,ThreeChildrenActivity.class));
                 break;
         }
     }
